@@ -1,6 +1,7 @@
-﻿using Poolgramming.Enums;
+﻿using Poolgramming.DataObjects;
+using Poolgramming.Enums;
 
-namespace Poolgramming
+namespace Poolgramming.State
 {
     public class GameState
     {

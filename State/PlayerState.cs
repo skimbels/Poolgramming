@@ -1,8 +1,7 @@
 ﻿using System;
-
 using Poolgramming.Enums;
 
-namespace Poolgramming
+namespace Poolgramming.State
 {
     public class PlayerState
     {

@@ -1,6 +1,6 @@
 ﻿using Poolgramming.Enums;
 
-namespace Poolgramming
+namespace Poolgramming.DataObjects
 {
     public struct ShotResult
     {

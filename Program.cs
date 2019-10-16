@@ -1,5 +1,5 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Threading;
+using Poolgramming.Data;
 
 namespace Poolgramming
 {
@@ -7,6 +7,12 @@ namespace Poolgramming
     {
         static void Main(string[] args)
         {
+            while (true)
+            {
+                var image = ImageSource.GetImage();
+
+                Thread.Sleep(1000);
+            }
         }
     }
 }
