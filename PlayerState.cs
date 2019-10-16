@@ -22,20 +22,8 @@ namespace Poolgramming
             get => _player1;
             set
             {
-                switch (value)
-                {
-                    case Colour.Red:
-                        _player1 = Colour.Red;
-                        _player2 = Colour.Yellow;
-                        return;
-                    case Colour.Yellow:
-                        _player1 = Colour.Yellow;
-                        _player2 = Colour.Red;
-                        return;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-
-                }
+                _player1 = value;
+                _player2 = value.OppositeColour();
             }
         }
 
@@ -44,19 +32,8 @@ namespace Poolgramming
             get => _player2;
             set
             {
-                switch (value)
-                {
-                    case Colour.Red:
-                        _player2 = Colour.Red;
-                        _player1 = Colour.Yellow;
-                        return;
-                    case Colour.Yellow:
-                        _player2 = Colour.Yellow;
-                        _player1 = Colour.Red;
-                        return;
-                    default:
-                       throw new ArgumentOutOfRangeException();
-                }
+                _player2 = value;
+                _player1 = value.OppositeColour();
             }
         }
 
@@ -79,17 +56,7 @@ namespace Poolgramming
         
         public void NextPlayer()
         {
-            switch (_currentPlayer)
-            {
-                case Player.Player1:
-                    _currentPlayer = Player.Player2;
-                    return;
-                case Player.Player2:
-                    _currentPlayer = Player.Player1;
-                    return;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            _currentPlayer = _currentPlayer.OppositePlayer();
         }
     }
 }
