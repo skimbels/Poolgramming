@@ -16,15 +16,15 @@ namespace Poolgramming.State
             _redsLeft = 7;
         }
 
-        public ShotResult MakeShot(int yellows, int reds, bool white, bool black, bool foul)
+        public ShotResult MakeShot(TableState tableState, bool foul)
         {
-            if (yellows > _yellowsLeft || reds > _redsLeft)
+            if (tableState.YellowCount > _yellowsLeft || tableState.RedCount > _redsLeft)
             {
                 return new ShotResult { Invalid = true };
             }
 
-            var loss = DetectLoss(yellows, reds, white, black);
-            var win = !loss && black;
+            var loss = DetectLoss(tableState);
+            var win = !loss && tableState.Black;
 
             if (win || loss)
             {
@@ -36,8 +36,8 @@ namespace Poolgramming.State
                 };
             }
 
-            foul |= DetectFoul(yellows, reds, white);
-            ProcessShot(yellows, reds, foul);
+            foul |= DetectFoul(tableState.YellowCount, tableState.RedCount, tableState.White);
+            ProcessShot(tableState.YellowCount, tableState.RedCount, foul);
 
             return new ShotResult
             {
@@ -45,15 +45,15 @@ namespace Poolgramming.State
             };
         }
 
-        private bool DetectLoss(int yellows, int reds, bool white, bool black)
+        private bool DetectLoss(TableState tableState)
         {
-            if (!black)
+            if (!tableState.Black)
             {
                 return false;
             }
 
             // Player pots black and white
-            if (white)
+            if (tableState.White)
             {
                 return true;
             }
@@ -65,8 +65,8 @@ namespace Poolgramming.State
                 case Colour.Yellow when _yellowsLeft > 0:
                 case Colour.Red when _redsLeft > 0:
                 // Player pots opponents ball and black.
-                case Colour.Yellow when reds > 0:
-                case Colour.Red when yellows > 0:
+                case Colour.Yellow when tableState.RedCount > 0:
+                case Colour.Red when tableState.YellowCount > 0:
                     return true;
                 default:
                     return false;
